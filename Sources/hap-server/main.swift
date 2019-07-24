@@ -20,16 +20,16 @@ let livingRoomLightbulb = Accessory.Lightbulb(info: Service.Info(name: "Sala", s
 let bedRoomLightbulb = Accessory.Lightbulb(info: Service.Info(name: "Quarto", serialNumber: "00004"))
 
 // Get the Pin where the LED will be attached to
-let gpios = SwiftyGPIO.GPIOs(for: .RaspberryPiPlusZero)
-guard let ledGPIO3 = gpios[.P4 ] else { fatalError("LED GPIO pin 3") }
-guard let ledGPIO5 = gpios[.P17] else { fatalError("LED GPIO pin 5") }
-guard let ledGPIO7 = gpios[.P27] else { fatalError("LED GPIO pin 7") }
-guard let ledGPIO8 = gpios[.P22] else { fatalError("LED GPIO pin 8") }
+let gpios : [GPIOName: GPIO]! = SwiftyGPIO.GPIOs(for: .RaspberryPiPlusZero)
+let ledGPIO3 : GPIO! = gpios[.P4 ]
+let ledGPIO5 : GPIO! = gpios[.P17]
+let ledGPIO7 : GPIO! = gpios[.P27]
+let ledGPIO8 : GPIO! = gpios[.P22]
 
-guard let ledGPIO6  = gpios[.P6 ] else { fatalError("LED GPIO pin 8") }
-guard let ledGPIO13 = gpios[.P13] else { fatalError("LED GPIO pin 8") }
-guard let ledGPIO19 = gpios[.P19] else { fatalError("LED GPIO pin 8") }
-guard let ledGPIO26 = gpios[.P26] else { fatalError("LED GPIO pin 8") }
+let ledGPIO6  : GPIO! = gpios[.P6 ]
+let ledGPIO13 : GPIO! = gpios[.P13]
+let ledGPIO19 : GPIO! = gpios[.P19]
+let ledGPIO26 : GPIO! = gpios[.P26]
 
 // Set the GPIO to output
 
@@ -39,10 +39,10 @@ let pinsINS  = [ledGPIO6, ledGPIO13, ledGPIO19, ledGPIO26]
 
 
 for  p in pinsOUTS {
-    p.direction = .OUT
+    p?.direction = .OUT
 }
 for  p in pinsINS {
-    p.direction = .IN
+    p?.direction = .IN
 }
 
 ledGPIO3.value = 0
@@ -191,23 +191,29 @@ class MyDeviceDelegate: DeviceDelegate {
                            ofService service: Service,
                            ofAccessory accessory: Accessory,
                            didChangeValue newValue: T?) {
+        
         logger.info("Characteristic \(characteristic) "
             + "in service \(service.type) "
             + "of accessory \(accessory.info.name.value ?? "") "
             + "did change: \(String(describing: newValue))")
         
-        switch accessory.info.name.value {
+        let str = String(describing: newValue) == "true"
+        let name = accessory.info.name.value ?? ""
+        
+        
+        switch name {
         case "Escritório":
-            ledGPIO3.value = (String(describing: newValue) == "true") ? 1 : 0
+            ledGPIO3.value = str ? 1 : 0
         case "Cozinha":
-            ledGPIO5.value = (String(describing: newValue) == "true") ? 1 : 0
+            ledGPIO5.value = str  ? 1 : 0
         case "Sala":
-            ledGPIO5.value = (String(describing: newValue) == "true") ? 1 : 0
+            ledGPIO5.value = str  ? 1 : 0
         case "Quarto":
-            ledGPIO8.value = (String(describing: newValue) == "true") ? 1 : 0
+            ledGPIO8.value = str  ? 1 : 0
         default:
             print("no case ")
         }
+   
     }
     
     func characteristicListenerDidSubscribe(_ accessory: Accessory,
