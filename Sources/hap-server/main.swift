@@ -186,7 +186,7 @@ class MyDeviceDelegate: DeviceDelegate {
         logger.info("Requested identification "
             + "of accessory \(String(describing: accessory.info.name.value ?? ""))")
     }
-
+    
     func characteristic<T>(_ characteristic: GenericCharacteristic<T>,
                            ofService service: Service,
                            ofAccessory accessory: Accessory,
@@ -195,18 +195,7 @@ class MyDeviceDelegate: DeviceDelegate {
             + "in service \(service.type) "
             + "of accessory \(accessory.info.name.value ?? "") "
             + "did change: \(String(describing: newValue))")
-        /*
-        let objectDict : Dictionary<String, Any?> = [
-            "output1"          : ledGPIO3.value,officeLightbulb
-            "output2"          : ledGPIO5.value,kitchenLightbulb
-            "output3"          : ledGPIO7.value,livingRoomLightbulb
-            "output4"          : ledGPIO8.value,bedRoomLightbulb
-        ]
-         let officeLightbulb = Accessory.Lightbulb(info: Service.Info(name: "Escritório", serialNumber: "00001"))
-         let kitchenLightbulb = Accessory.Lightbulb(info: Service.Info(name: "Cozinha", serialNumber: "00002"))
-         let livingRoomLightbulb = Accessory.Lightbulb(info: Service.Info(name: "Sala", serialNumber: "00003"))
-         let bedRoomLightbulb = Accessory.Lightbulb(info: Service.Info(name: "Quarto", serialNumber: "00004"))
-        */
+        
         switch accessory.info.name.value {
         case "Escritório":
             ledGPIO3.value = (String(describing: newValue) == "true") ? 1 : 0
@@ -220,7 +209,7 @@ class MyDeviceDelegate: DeviceDelegate {
             print("no case ")
         }
     }
-
+    
     func characteristicListenerDidSubscribe(_ accessory: Accessory,
                                             service: Service,
                                             characteristic: AnyCharacteristic) {
@@ -229,7 +218,7 @@ class MyDeviceDelegate: DeviceDelegate {
             + "of accessory \(accessory.info.name.value ?? "") "
             + "got a subscriber")
     }
-
+    
     func characteristicListenerDidUnsubscribe(_ accessory: Accessory,
                                               service: Service,
                                               characteristic: AnyCharacteristic) {
@@ -239,6 +228,7 @@ class MyDeviceDelegate: DeviceDelegate {
             + "lost a subscriber")
     }
 }
+
 
 var delegate = MyDeviceDelegate()
 device.delegate = delegate
