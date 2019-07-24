@@ -14,6 +14,8 @@ fileprivate let logger = getLogger("demo")
 import Kitura
 import SwiftyGPIO
 
+print("Initializing the server...")
+
 let officeLightbulb = Accessory.Lightbulb(info: Service.Info(name: "Escritório", serialNumber: "00001"))
 let kitchenLightbulb = Accessory.Lightbulb(info: Service.Info(name: "Cozinha", serialNumber: "00002"))
 let livingRoomLightbulb = Accessory.Lightbulb(info: Service.Info(name: "Sala", serialNumber: "00003"))
@@ -80,8 +82,8 @@ ledGPIO26.onFalling(){
     ledGPIO3.value = ledGPIO3.value == 0 ? 1 : 0
     officeLightbulb.lightbulb.powerState.value = ledGPIO3.value == 1
 }
-
-
+print("Setup...")
+/*
 class  House : Decodable{
     var output1 = 0
     var output2 = 0
@@ -153,7 +155,7 @@ router.get("/api") { request, response, next in
 }
 
 
-
+*/
 getLogger("hap").logLevel = .debug
 getLogger("hap.encryption").logLevel = .warning
 
@@ -164,7 +166,7 @@ if CommandLine.arguments.contains("--recreate") {
 }
 
 
-
+print("fille...")
 
 
 let device = Device(
