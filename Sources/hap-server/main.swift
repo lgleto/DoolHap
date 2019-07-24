@@ -267,8 +267,6 @@ print()
 
 print ("Server started on port 8080")
 
-Kitura.addHTTPServer(onPort: 8080, with: router)
-Kitura.run()
 
 withExtendedLifetime([delegate]) {
     if CommandLine.arguments.contains("--test") {
@@ -280,6 +278,10 @@ withExtendedLifetime([delegate]) {
         }
     }
 }
+
+//Kitura.addHTTPServer(onPort: 8080, with: router)
+//Kitura.run()
+
 
 try server.stop()
 logger.info("Stopped")
