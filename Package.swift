@@ -16,7 +16,6 @@ let package = Package(
         .package(url: "https://github.com/IBM-Swift/BlueCryptor.git", from: "1.0.21"),
         .package(url: "https://github.com/crossroadlabs/Regex.git", from: "1.1.0"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "1.11.0"),
-        .package(url: "https://github.com/daltoniam/Starscream.git", from: "3.1.0"),
         .package(url: "https://github.com/uraimo/SwiftyGPIO.git", from: "1.0.0"),
         .package(url: "https://github.com/IBM-Swift/Kitura", from: "2.7.0"),
     ],
@@ -25,7 +24,7 @@ let package = Package(
         .target(name: "COperatingSystem"),
         .target(name: "HTTP", dependencies: ["NIO", "NIOHTTP1", "NIOFoundationCompat", "COperatingSystem"]),
         .target(name: "HAP", dependencies: ["SRP", "Cryptor", "Evergreen", "HKDF", "Regex", "CQRCode", "HTTP"]),
-        .target(name: "hap-server", dependencies: ["HAP", "Evergreen","Starscream","SwiftyGPIO", "Kitura"]),
+        .target(name: "hap-server", dependencies: ["HAP", "Evergreen","SwiftyGPIO", "Kitura"]),
         .testTarget(name: "HAPTests", dependencies: ["HAP"]),
     ]
 )
