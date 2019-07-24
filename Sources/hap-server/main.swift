@@ -152,10 +152,7 @@ router.get("/api") { request, response, next in
     next()
 }
 
-print ("Server started on port 8080")
 
-Kitura.addHTTPServer(onPort: 8080, with: router)
-Kitura.run()
 
 getLogger("hap").logLevel = .debug
 getLogger("hap.encryption").logLevel = .warning
@@ -267,6 +264,11 @@ print("Scan the following QR code using your iPhone to pair this device:")
 print()
 print(device.setupQRCode.asText)
 print()
+
+print ("Server started on port 8080")
+
+Kitura.addHTTPServer(onPort: 8080, with: router)
+Kitura.run()
 
 withExtendedLifetime([delegate]) {
     if CommandLine.arguments.contains("--test") {
