@@ -209,10 +209,15 @@ class MyDeviceDelegate: DeviceDelegate {
         */
         switch accessory.info.name.value {
         case "Escritório":
-            ledGPIO3.value = newValue
-            
+            ledGPIO3.value = (String(describing: newValue) == "true") ? 1 : 0
+        case "Cozinha":
+            ledGPIO5.value = (String(describing: newValue) == "true") ? 1 : 0
+        case "Sala":
+            ledGPIO5.value = (String(describing: newValue) == "true") ? 1 : 0
+        case "Quarto":
+            ledGPIO8.value = (String(describing: newValue) == "true") ? 1 : 0
         default:
-            <#code#>
+            print("no case ")
         }
     }
 
